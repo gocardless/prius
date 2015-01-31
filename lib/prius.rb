@@ -1,4 +1,5 @@
 require "prius/registry"
+require "prius/railtie" if defined?(Rails)
 
 module Prius
   def self.load(name, type: :string)
