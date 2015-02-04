@@ -16,6 +16,12 @@ describe Prius::Registry do
         expect { registry.load(:slogan) }.
           to raise_error(Prius::MissingValueError)
       end
+
+      context "when allow_nil is true" do
+        it "doesn't blow up" do
+          expect { registry.load(:slogan, allow_nil: true) }.to_not raise_error
+        end
+      end
     end
 
     context "given an invalid type" do
@@ -78,6 +84,13 @@ describe Prius::Registry do
       it "blows up" do
         expect { registry.get(:name) }.
           to raise_error(Prius::UndeclaredNameError)
+      end
+    end
+
+    context "given a nillable name that has been loaded" do
+      before { registry.load(:lightsabre, allow_nil: true) }
+      it "returns nil" do
+        expect(registry.get(:lightsabre)).to be_nil
       end
     end
   end
