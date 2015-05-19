@@ -1,0 +1,22 @@
+AllCops:
+  Exclude:
+    - prius.gemspec
+
+# Limit lines to 80 characters.
+LineLength:
+  Max: 80
+
+ClassLength:
+  Max: 300
+
+StringLiterals:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/SignalException:
+  EnforcedStyle: 'only_raise'
+
+Style/DotPosition:
+  EnforcedStyle: 'trailing'
