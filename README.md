@@ -5,9 +5,12 @@ Environmentally-friendly application config for Ruby.
 
 Prius helps you guarantee that your environment variables are:
 
-- **Present** - Prius will raise if an environment variable is missing, so you'll hear about it as soon as your app boots.
-- **Consistently typed** - Prius can check that your environment can be coerced to a desired type (integer, boolean or string), so you can ensure you're getting when you expect.
-- **Easy to refer to** - Prius makes it easier to assign long, complicated environment variables a code-friendly name.
+- **Present** - Prius will raise if an environment variable is missing, so
+  you'll hear about it as soon as your app boots.
+- **Consistently typed** - Prius can coerce an environment variable to a
+  desired type (integer, boolean or string), and raise if it's invalid.
+- **Easy to refer to** - Prius makes it easier to assign long, complicated
+  environment variables a code-friendly name.
 
 ## Usage
 
@@ -29,13 +32,11 @@ Prius.get(:github_token)
 # Load an optional enviroment variable:
 Prius.load(:might_be_here_or_not, required: false)
 
-# Load and alias an environment variable
+# Load and alias an environment variable:
 Prius.load(:alias_name, env_var: "HORRENDOUS_SYSTEM_VAR_NAME")
 
-# Load and coerce an environment variable
+# Load and coerce an environment variable (or raise):
 Prius.load(:my_flag, type: :bool)
-# e.g. If MY_FLAG is one of y/yes/1/t/true
-# Prius.get(:my_flag) => true
 ```
 
 #### Loading Environment Variables
