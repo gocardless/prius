@@ -28,9 +28,7 @@ module Prius
     private
 
     def check_valid_type(type)
-      unless TYPES.include?(type)
-        raise ArgumentError, "invalid type '#{type}'"
-      end
+      raise ArgumentError, "invalid type '#{type}'" unless TYPES.include?(type)
     end
 
     def load_string(name, allow_nil)
