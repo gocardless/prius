@@ -3,24 +3,19 @@ Environmentally-friendly application config for Ruby.
 
 [BADGES]
 
-To install with RubyGems:
+Prius helps you guarantee that your environment variables are:
 
-```
-$ gem install hutch
-```
-
-## Overview
-
-Environment variables are fiddly.
-It's easy to forget them, forget to set their values or end up with inconsistent formats for booleans and flags.
-
-Prius makes it easy to provide a few guarantees around your environment variables which make them easier to work with.
-
-- **They're present** - environment variables must have been be loaded into the Prius registry before they can be used. If they haven't, it will raise an error
-- **They're consistently typed** - if you expect an environment variable to be an integer or a boolean, prius can attempt to coerce it (e.g. `y => true`). If it can't, it'll raise an error.
-- **They're easy to refer to** - so often environment variables have long and complex names, Prius makes it easy to assign them more code-friendly names
+- **Present** - Prius will raise if an environment variable is missing, so you'll hear about it as soon as your app boots.
+- **Consistently typed** - Prius can check that your environment can be coerced to a desired type (integer, boolean or string), so you can ensure you're getting when you expect.
+- **Easy to refer to** - Prius makes it easier to assign long, complicated environment variables a code-friendly name.
 
 ## Usage
+
+#### Installing
+
+```
+$ gem install prius
+```
 
 #### Quick Start
 
@@ -45,33 +40,31 @@ Prius.load(:my_flag, type: :bool)
 
 #### Loading Environment Variables
 
-To load environment variables for use with Prius, you must first load them
-into the Prius registry using:
+Environment variables need to be loaded into the Prius registry before being
+used. Typically this is done in an initialiser.
 
 ```ruby
-Prius.load(name, env_var: nil, type: :string, allow_nil: false)
+Prius.load(name, options = {})
 ```
 
-| Param             | default       | Description                                                                               |
+If an environment variable can't be loaded, Prius will raise one of:
+- `MissingValueError` if the environment variable was expected to be set but couldn't be found.
+- `TypeMismatchError` if the environment variable wasn't of the expected type (see below).
+
+`Prius.load` accepts the following options:
+
+| Param             | Default       | Description                                                                               |
 |-------------------|---------------|-------------------------------------------------------------------------------------------|
-| `name`            |               | The way you will refer to the prius config variable                                       |
-| `env_var`         | `name.upcase` | The environment variable name                                                         |
-| `type`            | `:string`     | Attempts to coerce the type of the environment variable. For example, if set to `:bool`, `yes`, `y`, `true`, `t` and `1` would all be coerced to `true`.                               |
-| `allow_nil`       | `false`         | Whether to raise an error if the environment variable hasn't been set. |
+| `required`        | `true`        | Flag to require the environment variable to have been set.                                |
+| `type`            | `:string`     | Type to coerce the environment variable to. Allowed values are `:string`, `:int` and `:bool`. |
+| `env_var`         | `name.upcase` | Name of the environment variable name (if different from the upcased `name`).             |
 
-In the case where an environment variable cannot be loaded, Prius will raise one of:
+#### Reading Environment Variables
 
-| Error              | Description                                                                               |
-|--------------------|-----------------------------------------------------------------------------------------------------------
-| `MissingValueError` | The enviroment variable was expected to be set, but it couldn't be found
-| `TypeMismatchError` | The enviroment variable wasn't of the expected type (e.g. "foo", where an integer was expected)
-
-#### Using Environment Variables
-
-Variables must be loaded into the registry before being used, but once loaded, they can be read using a call to:
+Once a variable has been loaded into the registry it can be read using:
 
 ```ruby
 Prius.get(name)
 ```
 
-In the case where an environment variable hasn't been loaded, Prius will raise an `UndeclaredNameError`.
+If the environment variable hasn't been loaded, Prius will raise an `UndeclaredNameError`.
