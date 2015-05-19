@@ -2,8 +2,6 @@ require "prius/errors"
 
 module Prius
   class Registry
-    TYPES = [:string, :int, :bool]
-
     # Initialise a Registry.
     #
     # env - A Hash used as a source for environment variables. Usually, ENV
@@ -34,10 +32,6 @@ module Prius
     end
 
     private
-
-    def check_valid_type(type)
-      raise ArgumentError, "invalid type '#{type}'" unless TYPES.include?(type)
-    end
 
     def load_string(name, required)
       @env.fetch(name)
