@@ -29,7 +29,7 @@ Prius.load(:github_token)
 # Use the environment variable:
 Prius.get(:github_token)
 
-# Load an optional enviroment variable:
+# Load an optional environment variable:
 Prius.load(:might_be_here_or_not, required: false)
 
 # Load and alias an environment variable:
