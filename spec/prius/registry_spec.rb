@@ -17,9 +17,9 @@ describe Prius::Registry do
           to raise_error(Prius::MissingValueError)
       end
 
-      context "when allow_nil is true" do
+      context "when required is false" do
         it "doesn't blow up" do
-          expect { registry.load(:slogan, allow_nil: true) }.to_not raise_error
+          expect { registry.load(:slogan, required: false) }.to_not raise_error
         end
       end
     end
@@ -88,7 +88,7 @@ describe Prius::Registry do
     end
 
     context "given a nillable name that has been loaded" do
-      before { registry.load(:lightsabre, allow_nil: true) }
+      before { registry.load(:lightsabre, required: false) }
       it "returns nil" do
         expect(registry.get(:lightsabre)).to be_nil
       end
