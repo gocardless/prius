@@ -1,6 +1,7 @@
 # Prius
 Environmentally-friendly application config for Ruby.
 
+[![Gem Version](https://badge.fury.io/rb/prius.svg)](http://badge.fury.io/rb/prius)
 [![Build Status](https://travis-ci.org/gocardless/prius.svg?branch=master)](https://travis-ci.org/gocardless/prius)
 
 Prius helps you guarantee that your environment variables are:
