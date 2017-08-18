@@ -78,3 +78,7 @@ If the environment variable hasn't been loaded, Prius will raise an `UndeclaredN
 To make running your app in test and development environments easier we
 recommend using [Dotenv](https://github.com/bkeepers/dotenv) to automatically
 load a file of dummy config values.
+
+---
+
+GoCardless ♥ open source. If you do too, come [join us](https://gocardless.com/about/jobs/software-engineer).
