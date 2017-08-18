@@ -39,7 +39,7 @@ describe Prius::Registry do
 
         it "stores an int" do
           registry.load(:age, type: :int)
-          expect(registry.get(:age)).to be_a(Fixnum)
+          expect(registry.get(:age)).to be_a(Integer)
         end
       end
 
