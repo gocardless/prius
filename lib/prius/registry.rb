@@ -44,7 +44,7 @@ module Prius
       value = load_string(name, required)
       return value if value.nil?
 
-      unless /\A[0-9]+\z/.match(value)
+      unless value =~ /\A[0-9]+\z/
         raise TypeMismatchError, "'#{name}' value '#{value}' is not an integer"
       end
       value.to_i
@@ -53,13 +53,9 @@ module Prius
     def load_bool(name, required)
       value = load_string(name, required)
       return nil if value.nil?
-
-      if /\A(yes|y|true|t|1)\z/i.match(value)
-        return true
-      elsif /\A(no|n|false|f|0)\z/i.match(value)
-        return false
-      end
-      raise TypeMismatchError, "'#{name}' value '#{value}' is not an boolean"
+      return true if %w[yes y true t 1].include?(value)
+      return false if %w[no n false f 0].include?(value)
+      raise TypeMismatchError, "'#{name}' value '#{value}' is not a boolean"
     end
   end
 end

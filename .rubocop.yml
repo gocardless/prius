@@ -18,5 +18,9 @@ Style/Documentation:
 Style/SignalException:
   EnforcedStyle: 'only_raise'
 
-Style/DotPosition:
+Layout/DotPosition:
   EnforcedStyle: 'trailing'
+
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*_spec.rb"
