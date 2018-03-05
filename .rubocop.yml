@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
     - prius.gemspec
+    - vendor/**/*
 
 # Limit lines to 80 characters.
 LineLength:
