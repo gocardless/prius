@@ -2,6 +2,7 @@ AllCops:
   Exclude:
     - prius.gemspec
     - vendor/**/*
+  TargetRubyVersion: 2.2
 
 # Limit lines to 80 characters.
 LineLength:
