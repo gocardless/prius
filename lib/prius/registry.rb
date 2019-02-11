@@ -37,6 +37,7 @@ module Prius
       @env.fetch(name)
     rescue KeyError
       return nil unless required
+
       raise MissingValueError, "config value '#{name}' not present"
     end
 
@@ -47,6 +48,7 @@ module Prius
       unless value =~ /\A[0-9]+\z/
         raise TypeMismatchError, "'#{name}' value '#{value}' is not an integer"
       end
+
       value.to_i
     end
 
@@ -55,6 +57,7 @@ module Prius
       return nil if value.nil?
       return true if %w[yes y true t 1].include?(value)
       return false if %w[no n false f 0].include?(value)
+
       raise TypeMismatchError, "'#{name}' value '#{value}' is not a boolean"
     end
   end
