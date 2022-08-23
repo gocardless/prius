@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "prius/registry"
 require "prius/railtie" if defined?(Rails)
 

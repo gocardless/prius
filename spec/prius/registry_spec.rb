@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "prius/registry"
 
 describe Prius::Registry do

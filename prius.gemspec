@@ -6,7 +6,7 @@ require 'prius/version'
 Gem::Specification.new do |spec|
   spec.name          = "prius"
   spec.version       = Prius::VERSION
-  spec.authors       = ["Harry Marr"]
+  spec.authors       = ["GoCardless Engineering"]
   spec.email         = ["engineering@gocardless.com"]
   spec.description   = %q{Environmentally-friendly config}
   spec.summary       = spec.description
@@ -18,9 +18,10 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = ">= 2.2"
+  spec.required_ruby_version = ">= 2.6"
 
   spec.add_development_dependency "rspec", "~> 3.1"
-  spec.add_development_dependency "rubocop", "~> 0.68.1"
-  spec.add_development_dependency "rspec_junit_formatter", "~> 0.4.0"
+  spec.add_development_dependency "rubocop", "~> 1.24"
+  spec.add_development_dependency "rspec_junit_formatter", "~> 0.5.1"
+  spec.add_development_dependency "rubocop-performance", "~> 1.13"
 end

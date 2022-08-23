@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "prius/errors"
 
 module Prius
