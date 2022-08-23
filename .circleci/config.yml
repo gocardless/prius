@@ -45,6 +45,10 @@ jobs:
     docker:
       - image: ruby:2.6
     steps: *steps
+  build-ruby3:
+    docker:
+      - image: ruby:3.0
+    steps: *steps
   build-jruby91:
     docker:
       - image: jruby:9.1
@@ -57,4 +61,5 @@ workflows:
       - build-ruby24
       - build-ruby25
       - build-ruby26
+      - build-ruby3
       - build-jruby91
