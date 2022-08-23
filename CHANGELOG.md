@@ -1,3 +1,10 @@
+# 4.0.0
+
+* Add support for Ruby 3.0
+* Enforce Ruby 2.6 as minimum required version
+* Drop support for Ruby 2.2, 2.3, 2.4, 2.5
+* Drop support for JRuby versions < 9.3.x (implicity enforced by C Ruby version 2.6 as minimum)
+
 # 3.0.0
 
 * Enforce Ruby 2.2 as minimum required version
