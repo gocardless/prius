@@ -14,7 +14,7 @@ module Prius
   #                       omitted the uppercased form of `name` will be used.
   #           :type     - The Symbol type of the environment variable's value.
   #                       The value will be coerced to this type. Must be one
-  #                       of :string, :int, or :bool (default :string).
+  #                       of :string, :int, :bool, or :date (default :string).
   #           :required - A Boolean indicating whether the value must be
   #                       present in the environment. If true, a
   #                       MissingValueError exception will be raised if the

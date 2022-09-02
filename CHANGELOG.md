@@ -1,3 +1,7 @@
+# unreleased
+
+* Add support for coercing to a date.
+
 # 4.0.0
 
 * Add support for Ruby 3.0

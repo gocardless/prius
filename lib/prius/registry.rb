@@ -22,6 +22,7 @@ module Prius
                         when :string then load_string(env_var, required)
                         when :int    then load_int(env_var, required)
                         when :bool   then load_bool(env_var, required)
+                        when :date   then load_date(env_var, required)
                         else raise ArgumentError, "Invalid type #{type}"
                         end
     end
@@ -61,6 +62,15 @@ module Prius
       return false if %w[no n false f 0].include?(value)
 
       raise TypeMismatchError, "'#{name}' value '#{value}' is not a boolean"
+    end
+
+    def load_date(name, required)
+      value = load_string(name, required)
+      return nil if value.nil?
+
+      Date.parse(value)
+    rescue ArgumentError
+      raise TypeMismatchError, "'#{name}' value '#{value}' is not a date"
     end
   end
 end
