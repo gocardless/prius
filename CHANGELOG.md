@@ -1,4 +1,4 @@
-# unreleased
+# 4.1.0
 
 * Add support for coercing to a date.
 
