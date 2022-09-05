@@ -3,7 +3,15 @@
 require "prius/registry"
 
 describe Prius::Registry do
-  let(:env) { { "NAME" => "Harry", "AGE" => "25", "ALIVE" => "yes" } }
+  let(:env) do
+    {
+      "NAME" => "Harry",
+      "AGE" => "25",
+      "ALIVE" => "yes",
+      "BORN" => "2022-09-02",
+      "INVALID_DATE" => "2022-02-99"
+    }
+  end
   let(:registry) { Prius::Registry.new(env) }
 
   describe "#load" do
@@ -68,6 +76,34 @@ describe Prius::Registry do
       context "given a non-boolean value" do
         it "blows up" do
           expect { registry.load(:name, type: :bool) }.
+            to raise_error(Prius::TypeMismatchError)
+        end
+      end
+    end
+
+    context "when specifying :date as the type" do
+      context "given a date value" do
+        it "doesn't blow up" do
+          expect { registry.load(:born, type: :date) }.to_not raise_error
+        end
+
+        it "stores a date" do
+          registry.load(:born, type: :date)
+          expect(registry.get(:born)).to be_a(Date)
+          expect(registry.get(:born)).to eq(Date.parse(env["BORN"]))
+        end
+      end
+
+      context "given an invalid date value" do
+        it "blows up" do
+          expect { registry.load(:invalid_date, type: :date) }.
+            to raise_error(Prius::TypeMismatchError)
+        end
+      end
+
+      context "given a non-date value" do
+        it "blows up" do
+          expect { registry.load(:name, type: :date) }.
             to raise_error(Prius::TypeMismatchError)
         end
       end

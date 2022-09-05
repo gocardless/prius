@@ -9,7 +9,7 @@ Prius helps you guarantee that your environment variables are:
 - **Present** - an exception is raised if an environment variable is missing,
   so you can hear about it as soon as your app boots.
 - **Valid** - an environment variable can be coerced to a desired type
-  (integer, boolean or string), and an exception will be raised if the value
+  (integer, boolean, string, or date), and an exception will be raised if the value
   doesn't match the type.
 
 ## Usage
@@ -60,7 +60,7 @@ If an environment variable can't be loaded, Prius will raise one of:
 | Param             | Default       | Description                                                                               |
 |-------------------|---------------|-------------------------------------------------------------------------------------------|
 | `required`        | `true`        | Flag to require the environment variable to have been set.                                |
-| `type`            | `:string`     | Type to coerce the environment variable to. Allowed values are `:string`, `:int` and `:bool`. |
+| `type`            | `:string`     | Type to coerce the environment variable to. Allowed values are `:string`, `:int`, `:bool`, and `:date`. |
 | `env_var`         | `name.upcase` | Name of the environment variable name (if different from the upcased `name`).             |
 
 #### Reading Environment Variables
