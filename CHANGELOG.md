@@ -1,3 +1,7 @@
+# 5.0.0
+
+* Ensure Prius#load raises an error when unexpected options are passed
+
 # 4.1.0
 
 * Add support for coercing to a date.

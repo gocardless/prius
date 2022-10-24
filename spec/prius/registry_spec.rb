@@ -15,6 +15,13 @@ describe Prius::Registry do
   let(:registry) { Prius::Registry.new(env) }
 
   describe "#load" do
+    context "given an invalid option" do
+      it "raises an error" do
+        expect { registry.load(:age, unsupported_option: :foo) }.
+          to raise_error(ArgumentError)
+      end
+    end
+
     context "given a name that's present in the environment" do
       it "doesn't blow up" do
         expect { registry.load(:name) }.to_not raise_error

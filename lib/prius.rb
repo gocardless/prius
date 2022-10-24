@@ -25,8 +25,8 @@ module Prius
   # Raises a MissingValueError for required values that are missing.
   # Raises a TypeMismatchError if a value can't be coerced to the given `type`.
   # Raises an ArgumentError if an invalid `type` is provided.
-  def self.load(name, options = {})
-    registry.load(name, options)
+  def self.load(name, **options)
+    registry.load(name, **options)
   end
 
   # Fetch a value from the registry.
