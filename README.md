@@ -48,7 +48,7 @@ Environment variables need to be loaded into the Prius registry before being
 used. Typically this is done in an initialiser.
 
 ```ruby
-Prius.load(name, options = {})
+Prius.load(name, **options)
 ```
 
 If an environment variable can't be loaded, Prius will raise one of:

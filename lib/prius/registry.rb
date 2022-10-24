@@ -14,10 +14,8 @@ module Prius
     end
 
     # See Prius.load for documentation.
-    def load(name, options = {})
-      env_var = options.fetch(:env_var, name.to_s.upcase)
-      type = options.fetch(:type, :string)
-      required = options.fetch(:required, true)
+    def load(name, env_var: nil, type: :string, required: true)
+      env_var = env_var.nil? ? name.to_s.upcase : env_var
       @registry[name] = case type
                         when :string then load_string(env_var, required)
                         when :int    then load_int(env_var, required)
