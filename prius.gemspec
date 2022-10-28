@@ -25,5 +25,6 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "gc_ruboconfig", "~> 3.6.0"
   spec.add_development_dependency "rspec", "~> 3.1"
+  spec.add_development_dependency "rspec-github", "~> 2.3.1"
   spec.metadata["rubygems_mfa_required"] = "true"
 end
