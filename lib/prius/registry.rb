@@ -46,7 +46,7 @@ module Prius
       value = load_string(name, required)
       return value if value.nil?
 
-      unless value =~ /\A[0-9]+\z/
+      unless /\A[0-9]+\z/.match?(value)
         raise TypeMismatchError, "'#{name}' value '#{value}' is not an integer"
       end
 

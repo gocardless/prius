@@ -9,10 +9,10 @@ describe Prius::Registry do
       "AGE" => "25",
       "ALIVE" => "yes",
       "BORN" => "2022-09-02",
-      "INVALID_DATE" => "2022-02-99"
+      "INVALID_DATE" => "2022-02-99",
     }
   end
-  let(:registry) { Prius::Registry.new(env) }
+  let(:registry) { described_class.new(env) }
 
   describe "#load" do
     context "given an invalid option" do
@@ -120,6 +120,7 @@ describe Prius::Registry do
   describe "#get" do
     context "given a name that has been loaded" do
       before { registry.load(:name) }
+
       it "returns the value" do
         expect(registry.get(:name)).to eq("Harry")
       end
@@ -134,6 +135,7 @@ describe Prius::Registry do
 
     context "given a nillable name that has been loaded" do
       before { registry.load(:lightsabre, required: false) }
+
       it "returns nil" do
         expect(registry.get(:lightsabre)).to be_nil
       end
