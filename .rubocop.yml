@@ -1,28 +1,32 @@
+inherit_gem:
+  gc_ruboconfig: rubocop.yml
+
+require:
+  - rubocop-rspec
+
 AllCops:
   Exclude:
-    - prius.gemspec
     - vendor/**/*
-  TargetRubyVersion: 2.6
-
-# Limit lines to 80 characters.
-LineLength:
-  Max: 80
-
-ClassLength:
-  Max: 300
-
-StringLiterals:
-  Enabled: false
+  TargetRubyVersion: 3.1
 
 Style/Documentation:
   Enabled: false
 
 Style/SignalException:
-  EnforcedStyle: 'only_raise'
+  EnforcedStyle: "only_raise"
 
 Layout/DotPosition:
-  EnforcedStyle: 'trailing'
+  EnforcedStyle: "trailing"
 
 Metrics/BlockLength:
   Exclude:
     - "spec/**/*_spec.rb"
+
+RSpec/NestedGroups:
+  Max: 5
+
+Gemspec/RequiredRubyVersion:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Max: 5
