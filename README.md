@@ -82,3 +82,4 @@ load a file of dummy config values.
 ---
 
 GoCardless ♥ open source. If you do too, come [join us](https://gocardless.com/about/jobs/software-engineer).
+test
