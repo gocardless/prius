@@ -2,6 +2,7 @@
 
 - Drop support for Ruby 2.6 and 2.7.
 - Add support for Ruby 3.2 and 3.3.
+- Downcase boolean values when checking for truthiness.
 
 # 5.0.0
 
