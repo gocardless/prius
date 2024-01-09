@@ -7,7 +7,7 @@ RSpec.describe Prius::Registry do
     {
       "NAME" => "Harry",
       "AGE" => "25",
-      "ALIVE" => "yes",
+      "ALIVE" => "Yes",
       "BORN" => "2022-09-02",
       "INVALID_DATE" => "2022-02-99",
     }

@@ -57,6 +57,8 @@ module Prius
     def load_bool(name, required)
       value = load_string(name, required)
       return nil if value.nil?
+
+      value = value.downcase
       return true if %w[yes y true t 1].include?(value)
       return false if %w[no n false f 0].include?(value)
 
