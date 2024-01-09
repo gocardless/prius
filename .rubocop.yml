@@ -5,6 +5,7 @@ require:
   - rubocop-rspec
 
 AllCops:
+  NewCops: enable
   Exclude:
     - vendor/**/*
   TargetRubyVersion: 3.1

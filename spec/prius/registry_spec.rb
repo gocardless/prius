@@ -2,7 +2,7 @@
 
 require "prius/registry"
 
-describe Prius::Registry do
+RSpec.describe Prius::Registry do
   let(:env) do
     {
       "NAME" => "Harry",
