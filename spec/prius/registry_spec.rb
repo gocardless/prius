@@ -10,6 +10,7 @@ RSpec.describe Prius::Registry do
       "ALIVE" => "yes",
       "BORN" => "2022-09-02",
       "INVALID_DATE" => "2022-02-99",
+      "CAPITALISED_BOOLEAN" => "TRUE",
     }
   end
   let(:registry) { described_class.new(env) }
@@ -77,6 +78,17 @@ RSpec.describe Prius::Registry do
         it "stores an boolean" do
           registry.load(:alive, type: :bool)
           expect(registry.get(:alive)).to be_a(TrueClass)
+        end
+      end
+
+      context "when capitalised" do
+        it "doesn't blow up" do
+          expect { registry.load(:capitalised_boolean, type: :bool) }.to_not raise_error
+        end
+
+        it "stores an boolean" do
+          registry.load(:capitalised_boolean, type: :bool)
+          expect(registry.get(:capitalised_boolean)).to be_a(TrueClass)
         end
       end
 
