@@ -2,12 +2,15 @@ name: tests
 
 on:
   push:
+    branches:
+      - "master"
+  pull_request:
 
 jobs:
   rubocop:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -18,10 +21,10 @@ jobs:
   tests:
     strategy:
       matrix:
-        ruby-version: [2.6, 2.7, 3.0, 3.1]
+        ruby-version: ["3.0", "3.1", "3.2", "3.3"]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
