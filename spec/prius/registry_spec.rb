@@ -10,6 +10,8 @@ RSpec.describe Prius::Registry do
       "ALIVE" => "Yes",
       "BORN" => "2022-09-02",
       "INVALID_DATE" => "2022-02-99",
+      "HELIUM_RELEASE_DATETIME" => "2024-01-31 00:00 UTC",
+      "INVALID_RELEASE_DATETIME" => "2024-01-31 00:99 UTC",
     }
   end
   let(:registry) { described_class.new(env) }
@@ -111,6 +113,34 @@ RSpec.describe Prius::Registry do
       context "given a non-date value" do
         it "blows up" do
           expect { registry.load(:name, type: :date) }.
+            to raise_error(Prius::TypeMismatchError)
+        end
+      end
+    end
+
+    context "when specifying :datetime as the type" do
+      context "given a datetime value" do
+        it "doesn't blow up" do
+          expect { registry.load(:helium_release_datetime, type: :datetime) }.to_not raise_error
+        end
+
+        it "stores a datetime" do
+          registry.load(:helium_release_datetime, type: :datetime)
+          expect(registry.get(:helium_release_datetime)).to be_a(DateTime)
+          expect(registry.get(:helium_release_datetime)).to eq(DateTime.parse(env["HELIUM_RELEASE_DATETIME"]))
+        end
+      end
+
+      context "given an invalid date value" do
+        it "blows up" do
+          expect { registry.load(:invalid_release_datetime, type: :datetime) }.
+            to raise_error(Prius::TypeMismatchError)
+        end
+      end
+
+      context "given a non-date value" do
+        it "blows up" do
+          expect { registry.load(:name, type: :datetime) }.
             to raise_error(Prius::TypeMismatchError)
         end
       end

@@ -1,3 +1,7 @@
+# 6.1.0 - 2024-06-27
+
+- Add support for loading a datetime value.
+
 # 6.0.0 - 2024-01-09
 
 - Drop support for Ruby 2.6 and 2.7.

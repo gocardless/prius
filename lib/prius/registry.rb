@@ -18,10 +18,11 @@ module Prius
     def load(name, env_var: nil, type: :string, required: true)
       env_var = name.to_s.upcase if env_var.nil?
       @registry[name] = case type
-                        when :string then load_string(env_var, required)
-                        when :int    then load_int(env_var, required)
-                        when :bool   then load_bool(env_var, required)
-                        when :date   then load_date(env_var, required)
+                        when :string   then load_string(env_var, required)
+                        when :int      then load_int(env_var, required)
+                        when :bool     then load_bool(env_var, required)
+                        when :date     then load_date(env_var, required)
+                        when :datetime then load_datetime(env_var, required)
                         else raise ArgumentError, "Invalid type #{type}"
                         end
     end
@@ -72,6 +73,15 @@ module Prius
       Date.parse(value)
     rescue ArgumentError
       raise TypeMismatchError, "'#{name}' value '#{value}' is not a date"
+    end
+
+    def load_datetime(name, required)
+      value = load_string(name, required)
+      return nil if value.nil?
+
+      DateTime.parse(value)
+    rescue ArgumentError
+      raise TypeMismatchError, "'#{name}' value '#{value}' is not a datetime"
     end
   end
 end
