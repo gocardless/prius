@@ -17,11 +17,12 @@ module Prius
     # See Prius.load for documentation.
     def load(name, env_var: nil, type: :string, required: true)
       env_var = name.to_s.upcase if env_var.nil?
+      value = load_value(env_var, required)
       @registry[name] = case type
-                        when :string then load_string(env_var, required)
-                        when :int    then load_int(env_var, required)
-                        when :bool   then load_bool(env_var, required)
-                        when :date   then load_date(env_var, required)
+                        when :string then value
+                        when :int    then parse_int(env_var, value)
+                        when :bool   then parse_bool(env_var, value)
+                        when :date   then parse_date(env_var, value)
                         else raise ArgumentError, "Invalid type #{type}"
                         end
     end
@@ -35,7 +36,7 @@ module Prius
 
     private
 
-    def load_string(name, required)
+    def load_value(name, required)
       @env.fetch(name)
     rescue KeyError
       return nil unless required
@@ -43,10 +44,7 @@ module Prius
       raise MissingValueError, "config value '#{name}' not present"
     end
 
-    def load_int(name, required)
-      value = load_string(name, required)
-      return value if value.nil?
-
+    def parse_int(name, value)
       unless /\A[0-9]+\z/.match?(value)
         raise TypeMismatchError, "'#{name}' value '#{value}' is not an integer"
       end
@@ -54,10 +52,7 @@ module Prius
       value.to_i
     end
 
-    def load_bool(name, required)
-      value = load_string(name, required)
-      return nil if value.nil?
-
+    def parse_bool(name, value)
       value = value.downcase
       return true if %w[yes y true t 1].include?(value)
       return false if %w[no n false f 0].include?(value)
@@ -65,10 +60,7 @@ module Prius
       raise TypeMismatchError, "'#{name}' value '#{value}' is not a boolean"
     end
 
-    def load_date(name, required)
-      value = load_string(name, required)
-      return nil if value.nil?
-
+    def parse_date(name, value)
       Date.parse(value)
     rescue ArgumentError
       raise TypeMismatchError, "'#{name}' value '#{value}' is not a date"
