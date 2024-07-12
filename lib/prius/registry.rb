@@ -15,9 +15,14 @@ module Prius
     end
 
     # See Prius.load for documentation.
-    def load(name, env_var: nil, type: :string, required: true)
+    def load(name, env_var: nil, type: :string, required: true, default: nil)
       env_var = name.to_s.upcase if env_var.nil?
-      value = load_value(env_var, required)
+
+      if required && !default.nil?
+        raise InvalidLoadError, "required config value #{env_var} cannot have default value"
+      end
+
+      value = load_value(env_var, required, default)
       @registry[name] = case type
                         when :string then value
                         when :int    then parse_int(env_var, value)
@@ -36,10 +41,10 @@ module Prius
 
     private
 
-    def load_value(name, required)
+    def load_value(name, required, default)
       @env.fetch(name)
     rescue KeyError
-      return nil unless required
+      return default unless required
 
       raise MissingValueError, "config value '#{name}' not present"
     end
