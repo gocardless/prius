@@ -26,6 +26,13 @@ RSpec.describe Prius::Registry do
       it "doesn't blow up" do
         expect { registry.load(:name) }.to_not raise_error
       end
+
+      context "but also a default value" do
+        it "raises an error" do
+          expect { registry.load(:name, default: "foo") }.
+            to raise_error(Prius::InvalidLoadError)
+        end
+      end
     end
 
     context "given a name that's not present in the environment" do
@@ -38,6 +45,14 @@ RSpec.describe Prius::Registry do
         it "doesn't blow up" do
           expect { registry.load(:slogan, required: false) }.to_not raise_error
         end
+
+        context "when a default value is provided" do
+          it "doesn't blow up" do
+            expect do
+              registry.load(:slogan, required: false, default: "GO GO GO")
+            end.to_not raise_error
+          end
+        end
       end
     end
 
@@ -45,6 +60,14 @@ RSpec.describe Prius::Registry do
       it "blows up" do
         expect { registry.load(:name, type: :lightsabre) }.
           to raise_error(ArgumentError)
+      end
+    end
+
+    # TODO: Decide if default values should be strings or of the parsed type
+    context "when specifying a default for a non-string type" do
+      it "doesn't blow up" do
+        expect { registry.load(:blah, type: :int, required: false, default: "56") }.
+          to_not raise_error
       end
     end
 
@@ -74,7 +97,7 @@ RSpec.describe Prius::Registry do
           expect { registry.load(:alive, type: :bool) }.to_not raise_error
         end
 
-        it "stores an boolean" do
+        it "stores a boolean" do
           registry.load(:alive, type: :bool)
           expect(registry.get(:alive)).to be_a(TrueClass)
         end
@@ -133,11 +156,19 @@ RSpec.describe Prius::Registry do
       end
     end
 
-    context "given a nillable name that has been loaded" do
+    context "given a nilable name that has been loaded" do
       before { registry.load(:lightsabre, required: false) }
 
       it "returns nil" do
         expect(registry.get(:lightsabre)).to be_nil
+      end
+
+      context "with a default" do
+        before { registry.load(:lightsabre, required: false, default: "blue") }
+
+        it "returns the default" do
+          expect(registry.get(:lightsabre)).to eq("blue")
+        end
       end
     end
   end
